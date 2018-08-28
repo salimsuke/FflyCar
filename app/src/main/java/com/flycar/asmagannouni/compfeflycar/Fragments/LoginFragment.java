@@ -33,8 +33,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     @BindView(R.id.button_sign_in)
     Button button_sign_in;
 
-    @BindView(R.id.button_parents_click_here)
-    Button button_parents_click_here;
+//    @BindView(R.id.button_parents_click_here)
+//    Button button_parents_click_here;
 
     @BindView(R.id.text_input_username)
     TextInputLayout text_input_username;
@@ -64,7 +64,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         // Set listeners to views
         button_sign_in.setOnClickListener(this);
-        button_parents_click_here.setOnClickListener(this);
+        //button_parents_click_here.setOnClickListener(this);
 
         return view;
     }
@@ -79,10 +79,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 //verifyDetailsAndCallLoginAPI();
                 break;
 
-            case R.id.button_parents_click_here:
-                //showParentsDialog();
-                //logic sign in
-                break;
+//            case R.id.button_parents_click_here:
+//                //showParentsDialog();
+//                //logic sign in
+//                break;
 
         }
 

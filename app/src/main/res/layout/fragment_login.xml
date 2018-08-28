@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="?attr/actionBarSize">
+    >
 
     <!--Main layout-->
     <RelativeLayout
@@ -18,8 +18,9 @@
             android:layout_height="200dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
+            android:scaleType="fitXY"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/logo_fly_car" />
+            android:src="@drawable/app_logo" />
 
         <!--Login fields with login and forgot pass button-->
         <LinearLayout
@@ -43,8 +44,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/email_address"
                     android:inputType="textEmailAddress"
-                    android:singleLine="true"
-/>
+                    android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -64,26 +64,27 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/button_sign_in"
+            android:id="@+id/button_sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/ripple_button_effect"
+            android:backgroundTint="@color/btn_login"
+            android:text="@string/login"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/button_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@drawable/ripple_button_effect"
-                android:backgroundTint="@color/btn_login"
-                android:text="@string/login"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="@string/create_account"
                 android:textAllCaps="false"
                 android:textColor="@color/white" />
 
-            <Button
-                android:id="@+id/button_parents_click_here"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/ripple_button_effect"
-                android:backgroundTint="@color/btn_parents_click_here"
-                android:text="@string/signup"
-                android:textAllCaps="false"
-                android:textColor="@color/white" />
 
         </LinearLayout>
 
@@ -97,7 +98,7 @@
             android:textStyle="italic"
             android:layout_below="@id/ll_login_fields"
             android:gravity="center"
-            android:text="Asma Gannouni \n all rights reserved" />
+            android:text="Asma Gannouni all rights reserved" />
 
     </RelativeLayout>
 

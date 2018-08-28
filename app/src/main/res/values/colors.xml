@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#E91E63</color>
-    <color name="colorPrimaryDark">#C2185B</color>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#fb6f91</color>
     <color name="white">#ffFFFFFF</color>
 
-    <color name="btn_login">#ff5db0fc</color>
+    <color name="btn_login">#f1bd47</color>
     <color name="btn_parents_click_here">#ffbf74cb</color>
     <color name="btn_kidgenius_site">#ff55a95c</color>
 
