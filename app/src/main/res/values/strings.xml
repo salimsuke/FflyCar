@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Fly Car</string>
+
+    <string name="login">Sign in</string>
+    <string name="signup">Create Account</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+
+
+</resources>
