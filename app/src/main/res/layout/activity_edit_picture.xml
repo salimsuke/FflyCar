@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditPictureActivity"
+    tools:context=".Activities.EditPictureActivity"
     >
     <ImageView
         android:id="@+id/image"
@@ -15,7 +15,12 @@
     <ImageView
         android:id="@+id/filter_image_edit"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="fill_parent"
+        android:adjustViewBounds="true"
+        android:scaleX="1.7"
+        android:scaleY="1.7"
+        android:rotation="90"
+        android:alpha="0.6"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/confirm"
@@ -27,6 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/btn_login"
         app:layout_constraintVertical_bias="0.966" />
 
     <android.support.design.widget.FloatingActionButton
@@ -40,6 +46,7 @@
         app:layout_constraintHorizontal_bias="0.953"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/btn_login"
         app:layout_constraintVertical_bias="0.033" />
     <RelativeLayout
         android:id="@+id/relativeLayout"
