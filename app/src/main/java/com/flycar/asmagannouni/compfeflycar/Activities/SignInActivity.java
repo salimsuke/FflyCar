@@ -1,5 +1,6 @@
 package com.flycar.asmagannouni.compfeflycar.Activities;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -13,9 +14,12 @@ import com.flycar.asmagannouni.compfeflycar.R;
 
 public class SignInActivity extends BaseActivity {
 
+    public static Activity thisAct;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        thisAct=SignInActivity.this;
         showFragment(R.id.sign_in_main_container, new LoginFragment());
     }
 

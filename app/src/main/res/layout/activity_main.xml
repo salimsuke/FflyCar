@@ -13,7 +13,7 @@
         android:layout_height="64dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:background="@null"
         android:scaleType="fitXY"
@@ -28,7 +28,7 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@null"
@@ -41,15 +41,19 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="19dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/roboto_thin"
-        app:layout_constraintBottom_toBottomOf="@+id/img_car_out"
-        app:layout_constraintTop_toTopOf="@+id/img_car_out"
-        tools:layout_editor_absoluteX="186dp"
-        tools:text="or" />
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/text_input_car_immat"
+        app:layout_constraintEnd_toStartOf="@+id/img_car_out"
+        app:layout_constraintStart_toEndOf="@+id/img_car_in"
+        app:layout_constraintTop_toBottomOf="@+id/txt_title_choose_car"
+        android:text="or" />
 
 
     <android.support.design.widget.TextInputLayout

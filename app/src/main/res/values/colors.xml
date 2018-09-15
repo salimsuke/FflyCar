@@ -6,6 +6,8 @@
     <color name="white">#ffFFFFFF</color>
 
     <color name="btn_login">#f1bd47</color>
+    <color name="title_gradient">#66f1bd47</color>
+
     <color name="btn_parents_click_here">#ffbf74cb</color>
     <color name="btn_kidgenius_site">#ff55a95c</color>
 

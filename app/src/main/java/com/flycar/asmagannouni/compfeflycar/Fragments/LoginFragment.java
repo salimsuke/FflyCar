@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 
+import com.flycar.asmagannouni.compfeflycar.Activities.CarInformationActivity;
+import com.flycar.asmagannouni.compfeflycar.Activities.MainActivity;
 import com.flycar.asmagannouni.compfeflycar.Activities.SignInActivity;
 import com.flycar.asmagannouni.compfeflycar.R;
 
@@ -75,6 +77,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         switch (v.getId()) {
             case R.id.button_sign_in:
+
+                startActivity(new Intent(getActivity(),MainActivity.class));
+
                 //logic sign in
                 //verifyDetailsAndCallLoginAPI();
                 break;

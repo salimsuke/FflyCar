@@ -98,7 +98,7 @@
             android:textStyle="italic"
             android:layout_below="@id/ll_login_fields"
             android:gravity="center"
-            android:text="Asma Gannouni all rights reserved" />
+            android:text="Salim Fgaier all rights reserved" />
 
     </RelativeLayout>
 
