@@ -32,6 +32,8 @@ public class EditPictureActivity extends AppCompatActivity {
     private NoteDatabase noteDatabase;
     private String fileName;
     private boolean isChanged;
+    private ImageView iv;
+    private RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +43,10 @@ public class EditPictureActivity extends AppCompatActivity {
                 NoteDatabase.class, DATABASE_NAME)
                 .fallbackToDestructiveMigration()
                 .build();
-        ImageView iv = findViewById(R.id.image);
+        iv = findViewById(R.id.image);
         ImageView ivfilter = findViewById(R.id.filter_image_edit);
         // RelativeLayout. though you can use xml RelativeLayout here too by `findViewById()`
-        RelativeLayout relativeLayout = findViewById(R.id.relativeLayout);
+        relativeLayout = findViewById(R.id.relativeLayout);
         FloatingActionButton cancel = findViewById(R.id.cancel);
         cancel.setOnClickListener(view -> finish());
         FloatingActionButton confirm = findViewById(R.id.confirm);
@@ -82,7 +84,7 @@ public class EditPictureActivity extends AppCompatActivity {
             }
         }
 
-        iv.setOnTouchListener((v, event) -> imageViewTouched(iv, relativeLayout, event));
+//        iv.setOnTouchListener((v, event) -> imageViewTouched(iv, relativeLayout, event));
     }
     public static Bitmap rotateImage(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
@@ -101,8 +103,8 @@ public class EditPictureActivity extends AppCompatActivity {
             int[] viewCoords = new int[2];
             iv.getLocationOnScreen(viewCoords);
 
-            int imageX = (int) (event.getX() + viewCoords[0]) + 380; // viewCoods[0] is the X coordinate
-            int imageY = (int) (event.getY() + viewCoords[1]) + 500; // viewCoods[1] is the y coordinate
+            int imageX = (int) (event.getX()); // viewCoods[0] is the X coordinate
+            int imageY = (int) (event.getY()); // viewCoods[1] is the y coordinate
             Log.v("Real x >>>", imageX + "");
             Log.v("Real y >>>", imageY + "");
             addNotesPosition(relativeLayout, imageX, imageY);
@@ -150,6 +152,13 @@ public class EditPictureActivity extends AppCompatActivity {
 // Finally Adding the imageView to RelativeLayout and its position
         relativeLayout.addView(imageView, layoutParams);
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        imageViewTouched(iv, relativeLayout, event);
+        return true;
+    }
+
     @Override
     public void startActivityForResult(Intent intent, int requestCode) {
         super.startActivityForResult(intent, requestCode);
