@@ -51,7 +51,7 @@ public class EditPictureActivity extends AppCompatActivity {
         confirm.setOnClickListener(view -> {
             persistData();
             Intent i = new Intent(getApplicationContext(), GalleryActivity.class);
-            startActivity(i);
+            startActivityForResult(i, GalleryActivity.GALLERY_REQUEST);
         });
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -149,6 +149,10 @@ public class EditPictureActivity extends AppCompatActivity {
 
 // Finally Adding the imageView to RelativeLayout and its position
         relativeLayout.addView(imageView, layoutParams);
+    }
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        super.startActivityForResult(intent, requestCode);
     }
 
     @Override

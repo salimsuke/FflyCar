@@ -18,6 +18,7 @@ import java.io.File;
 
 public class GalleryActivity extends AppCompatActivity {
     GridView gallery;
+    public static final int GALLERY_REQUEST = 1;
 
     private File[] files;
     private String[] filesPaths;
