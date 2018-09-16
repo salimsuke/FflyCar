@@ -4,6 +4,7 @@ import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -54,7 +55,11 @@ public class EditPictureActivity extends AppCompatActivity {
         });
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            ivfilter.setImageResource(extras.getInt("selectedFilter"));
+//            ivfilter.setImageResource(extras.getInt("selectedFilter"));
+
+            Bitmap bMap = BitmapFactory.decodeResource(getResources(),extras.getInt("selectedFilter"));
+            if (bMap != null)
+                ivfilter.setImageBitmap(rotateImage(bMap, 0));
             File imgFile = new File(extras.getString("picFile"));
 
             if (imgFile.exists()) {
@@ -77,7 +82,12 @@ public class EditPictureActivity extends AppCompatActivity {
 
         iv.setOnTouchListener((v, event) -> imageViewTouched(iv, relativeLayout, event));
     }
-
+    public static Bitmap rotateImage(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix,
+                true);
+    }
     private void persistData() {
         if(isChanged)
         new Thread(() -> noteDatabase.daoAccess().insertMultipleMovies (notes)).start();
@@ -89,8 +99,8 @@ public class EditPictureActivity extends AppCompatActivity {
             int[] viewCoords = new int[2];
             iv.getLocationOnScreen(viewCoords);
 
-            int imageX = (int) (event.getX() + viewCoords[0]); // viewCoods[0] is the X coordinate
-            int imageY = (int) (event.getY() + viewCoords[1]); // viewCoods[1] is the y coordinate
+            int imageX = (int) (event.getX() + viewCoords[0]) + 380; // viewCoods[0] is the X coordinate
+            int imageY = (int) (event.getY() + viewCoords[1]) + 500; // viewCoods[1] is the y coordinate
             Log.v("Real x >>>", imageX + "");
             Log.v("Real y >>>", imageY + "");
             addNotesPosition(relativeLayout, imageX, imageY);
