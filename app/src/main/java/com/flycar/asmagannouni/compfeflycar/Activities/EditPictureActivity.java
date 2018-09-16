@@ -58,8 +58,10 @@ public class EditPictureActivity extends AppCompatActivity {
 //            ivfilter.setImageResource(extras.getInt("selectedFilter"));
 
             Bitmap bMap = BitmapFactory.decodeResource(getResources(),extras.getInt("selectedFilter"));
-            if (bMap != null)
-                ivfilter.setImageBitmap(rotateImage(bMap, 0));
+            if (bMap != null) {
+                int rotation = getWindowManager().getDefaultDisplay().getRotation();
+                ivfilter.setImageBitmap(rotateImage(bMap, rotation));
+            }
             File imgFile = new File(extras.getString("picFile"));
 
             if (imgFile.exists()) {
