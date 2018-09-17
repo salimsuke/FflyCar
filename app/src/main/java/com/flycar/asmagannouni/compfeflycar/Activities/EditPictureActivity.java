@@ -4,6 +4,8 @@ import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.hardware.camera2.CaptureRequest;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -12,6 +14,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -31,6 +34,8 @@ public class EditPictureActivity extends AppCompatActivity {
     private NoteDatabase noteDatabase;
     private String fileName;
     private boolean isChanged;
+    private ImageView iv;
+    private RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,21 +45,29 @@ public class EditPictureActivity extends AppCompatActivity {
                 NoteDatabase.class, DATABASE_NAME)
                 .fallbackToDestructiveMigration()
                 .build();
-        ImageView iv = findViewById(R.id.image);
+        iv = findViewById(R.id.image);
         ImageView ivfilter = findViewById(R.id.filter_image_edit);
         // RelativeLayout. though you can use xml RelativeLayout here too by `findViewById()`
-        RelativeLayout relativeLayout = findViewById(R.id.relativeLayout);
+        relativeLayout = findViewById(R.id.relativeLayout);
         FloatingActionButton cancel = findViewById(R.id.cancel);
         cancel.setOnClickListener(view -> finish());
         FloatingActionButton confirm = findViewById(R.id.confirm);
         confirm.setOnClickListener(view -> {
             persistData();
             Intent i = new Intent(getApplicationContext(), GalleryActivity.class);
-            startActivity(i);
+            startActivityForResult(i, GalleryActivity.GALLERY_REQUEST);
         });
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            ivfilter.setImageResource(extras.getInt("selectedFilter"));
+            //ivfilter.setImageResource(extras.getInt("selectedFilter"));
+
+            Bitmap bMap = BitmapFactory.decodeResource(getResources(),extras.getInt("selectedFilter"));
+            if (bMap != null) {
+
+                // Orientation
+                int rotation = getWindowManager().getDefaultDisplay().getRotation();
+                ivfilter.setImageBitmap(rotateImage(bMap, rotation));
+            }
             File imgFile = new File(extras.getString("picFile"));
 
             if (imgFile.exists()) {
@@ -75,9 +88,18 @@ public class EditPictureActivity extends AppCompatActivity {
             }
         }
 
-        iv.setOnTouchListener((v, event) -> imageViewTouched(iv, relativeLayout, event));
+        //iv.setOnTouchListener((v, event) -> imageViewTouched(iv, relativeLayout, event));
     }
-
+    public static Bitmap rotateImage(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix,
+                true);
+    }
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        super.startActivityForResult(intent, requestCode);
+    }
     private void persistData() {
         if(isChanged)
         new Thread(() -> noteDatabase.daoAccess().insertMultipleMovies (notes)).start();
@@ -86,15 +108,21 @@ public class EditPictureActivity extends AppCompatActivity {
     private boolean imageViewTouched(ImageView iv, RelativeLayout relativeLayout, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN)
         {
-            int[] viewCoords = new int[2];
-            iv.getLocationOnScreen(viewCoords);
+//            int[] viewCoords = new int[2];
+//            iv.getLocationOnScreen(viewCoords);
 
-            int imageX = (int) (event.getX() + viewCoords[0]); // viewCoods[0] is the X coordinate
-            int imageY = (int) (event.getY() + viewCoords[1]); // viewCoods[1] is the y coordinate
+            int imageX = (int) (event.getX()); // viewCoods[0] is the X coordinate
+            int imageY = (int) (event.getY()); // viewCoods[1] is the y coordinate
             Log.v("Real x >>>", imageX + "");
             Log.v("Real y >>>", imageY + "");
             addNotesPosition(relativeLayout, imageX, imageY);
         }
+        return true;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        runOnUiThread(()->imageViewTouched(iv, relativeLayout, event));
         return true;
     }
 
@@ -139,16 +167,17 @@ public class EditPictureActivity extends AppCompatActivity {
         relativeLayout.addView(imageView, layoutParams);
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        View decorView = getWindow().getDecorView();
-        if (hasFocus)
-            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-    }
+
+//    @Override
+//    public void onWindowFocusChanged(boolean hasFocus) {
+//        super.onWindowFocusChanged(hasFocus);
+//        View decorView = getWindow().getDecorView();
+//        if (hasFocus)
+//            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+//                    | View.SYSTEM_UI_FLAG_FULLSCREEN
+//                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+//                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+//    }
 }
